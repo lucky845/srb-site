@@ -94,14 +94,58 @@ export default {
   },
 
   methods: {
-    //发短信
-    send() {},
+    // 发短信
+    send() {
+      // 判断手机号码是否输入
+      if (!this.userInfo.mobile) {
+        this.$message.error('请输入手机号码')
+        return
+      }
 
-    //倒计时
-    timeDown() {},
+      // 防止重复提交
+      if (this.sending) return
+      this.sending = true
 
-    //注册
-    register() {},
+      // 倒计时
+      this.timeDown()
+
+      // 调用远程调用发送短信的接口
+      this.$axios
+        .$get('/api/sms/send/' + this.userInfo.mobile)
+        .then((response) => {
+          this.$message.success(response.message)
+        })
+    },
+
+    // 倒计时
+    timeDown() {
+      console.log('开始倒计时')
+      this.leftSecond = this.second
+      // 创建定时器
+      const timer = setInterval(() => {
+        // 计数器减一
+        this.leftSecond--
+        if (this.leftSecond <= 0) {
+          // 停止定时器
+          clearInterval(timer)
+          // 还原计数器
+          this.leftSecond = this.second
+          // 还原按钮状态
+          this.sending = false
+        }
+      }, 1000)
+    },
+
+    // 注册
+    register() {
+      this.$axios
+        .$post('/api/core/userInfo/register', this.userInfo)
+        .then((response) => {
+          // 显示注册成功页面
+          this.step = 2
+          
+        })
+    },
   },
 }
 </script>
