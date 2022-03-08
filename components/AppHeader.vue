@@ -130,7 +130,18 @@ export default {
       }
       // 用户已经登陆了
       userInfo = JSON.parse(userInfo)
-      this.userInfo = userInfo
+
+      // 首先需要校验token是否合法
+      this.$axios({
+        url: '/api/core/userInfo/checkToken',
+        method: 'get',
+        Headers: {
+          token: userInfo.token,
+        },
+      }).then((response) => {
+        console.log('校验成功')
+        this.userInfo = userInfo
+      })
     },
 
     //退出
