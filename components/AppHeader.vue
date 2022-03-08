@@ -119,10 +119,27 @@ export default {
 
   methods: {
     //显示用户信息
-    showInfo() {},
+    showInfo() {
+      // 从cookie中取出用户信息,判断用户是否登陆(cookie是否存在)
+      let userInfo = cookie.get('userInfo')
+      if (!userInfo) {
+        // 用户未登陆
+        console.log('用户未登陆')
+        this.userInfo = null
+        return
+      }
+      // 用户已经登陆了
+      userInfo = JSON.parse(userInfo)
+      this.userInfo = userInfo
+    },
 
     //退出
-    logout() {},
+    logout() {
+      // 清空cookie中的用户信息
+      cookie.set('userInfo', '')
+      // 跳转到登陆页面
+      window.location.href = '/login'
+    },
   },
 }
 </script>
