@@ -135,9 +135,9 @@ export default {
       this.$axios({
         url: '/api/core/userInfo/checkToken',
         method: 'get',
-        Headers: {
-          token: userInfo.token,
-        },
+        // Headers: {
+        //   token: userInfo.token,
+        // },
       }).then((response) => {
         console.log('校验成功')
         this.userInfo = userInfo

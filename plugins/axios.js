@@ -17,7 +17,7 @@ export default function ({ $axios, redirect }) {
   })
 
   $axios.onResponse((response) => {
-    console.log('Reciving resposne', response)
+    // console.log('Reciving resposne', response)
     if (response.data.code === 0) {
       return response
     } else if (response.data.code === -211) {
