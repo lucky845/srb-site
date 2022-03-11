@@ -135,6 +135,7 @@ export default {
   },
 
   watch: {
+    // 判断借款额度
     'borrowInfo.amount'(value) {
       if (value > this.borrowAmount) {
         let _this = this
@@ -153,6 +154,7 @@ export default {
   },
 
   methods: {
+    // 获取借款申请状态
     getBorrowInfoStatus() {
       this.$axios
         .$get('/api/core/borrowInfo/auth/getBorrowInfoStatus')
@@ -196,7 +198,7 @@ export default {
           this.moneyUseList = response.data.dictList
         })
     },
-
+    // 获取借款额度
     getBorrowAmount() {
       this.$axios
         .$get('/api/core/borrowInfo/auth/getBorrowAmount')
