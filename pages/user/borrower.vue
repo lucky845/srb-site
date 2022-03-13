@@ -231,7 +231,7 @@ export default {
     }
   },
 
-  created() {
+  mounted() {
     this.getUserInfo()
   },
 
