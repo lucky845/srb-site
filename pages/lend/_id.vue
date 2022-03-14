@@ -426,7 +426,8 @@ export default {
         investAmount: 100, //投资金额
       },
       interestCount: 0, //将获得收益
-      userType: 0 //用户类型
+      userType: 0, //用户类型
+      lendItemReturnList: [], //回款计划
     }
   },
 
@@ -437,6 +438,9 @@ export default {
 
     //判断登录人的用户类型
     this.fetchUserType()
+
+    //回款计划
+    this.fetchLendItemReturnList()
   },
 
   methods: {
@@ -473,6 +477,15 @@ export default {
           this.interestCount = response.data.interestCount
         })
     },
+
+    //回款计划
+    fetchLendItemReturnList() {
+      this.$axios
+          .$get('/api/core/lendItemReturn/auth/list/' + this.$route.params.id)
+          .then((response) => {
+            this.lendItemReturnList = response.data.list
+         })
+      },
 
     //投资
     commitInvest() {
