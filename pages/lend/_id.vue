@@ -399,9 +399,15 @@ export default {
     // 通过lenId获取标的信息
     let response = await $axios.$get('/api/core/lend/show/' + lendId)
 
+    // 投资记录
+    let responseLendItemList = await $axios.$get(
+      '/api/core/lendItem/list/' + lendId
+      )
+
     return {
       lend: response.data.lendDetail.lend, //标的详情
-      borrower: response.data.lendDetail.borrower //借款人信息
+      borrower: response.data.lendDetail.borrower, //借款人信息
+      lendItemList: responseLendItemList.data.list, //投资记录
     }
   },
 
